@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<svg height="500" width="600">
+		<g id="group">
+			<circle cx="200" cy="200" r="100"></circle>
+			<line x1="100" y1="200" x2="300" y2="200" style="stroke:white;"></line>
+		</g>
+	</svg>
+
+	<script type="text/javascript">
+		var element = document.getElementById('group');
+		var move = function(x,y){
+			element.setAttribute('transform','translate('+x+','+y+')');
+			alert(x,y);
+		};
+		var slider = function(a,b){
+			
+			move(a+20, b+20);
+		};
+		slider(20,20);
+	</script>
+</body>
+</html>			

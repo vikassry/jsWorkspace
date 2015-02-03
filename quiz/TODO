@@ -1,0 +1,12 @@
+[done]	Get code scaffold ready
+	folder, bash, sublime, runtest, main, module, test
+[done]	Sample question bank format
+[done]	Read the question bank
+[done] user interaction
+	ask question
+	read answer
+[done] verify answer
+[done] accumulate result
+[done] time the quiz
+[done] report the result
+[done] integrate the parts of the game
