@@ -2,8 +2,8 @@ var assert = require('assert');
 var test = {};
 
 (0).__proto__.times = function(operation){
-	for(var i=0;i<this;i++)	
-		operation(i);	
+	for(var i=0;i<this;i++)
+		operation(i);
 };
 
 var generateArray = function(till){

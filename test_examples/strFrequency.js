@@ -8,7 +8,7 @@ var find_frequency_of_words = function(str){
 	words.forEach(function(word){
 		occurrance[word] = occurrance[word] || 0;
 		occurrance[word] += 1;
-	}); 
+	});
 	return occurrance;
 };
 

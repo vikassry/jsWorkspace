@@ -36,24 +36,24 @@ test['analysis of "\r\n\r\n\r\n\r\n\r\n\r\n\r\n" gives l:7 w:0 c:14'] = function
 
 test['readArgs finds filename'] = function(){
 	var args = lib.readArgs(['one.txt']);
-	assert.deepEqual(args.filename,'one.txt');
+	assert.deepEqual(args.fileNames,'one.txt');
 	assert.deepEqual(args.options,['lines','words','chars']);
 };
 
 test['readArgs finds filename and -c'] = function(){
 	var args = lib.readArgs(['-c','one.txt']);
-	assert.deepEqual(args.filename,'one.txt');
+	assert.deepEqual(args.fileNames,'one.txt');
 	assert.deepEqual(args.options,['chars']);
 };
 
 test['readArgs finds filename and -l'] = function(){
 	var args = lib.readArgs(['-l','one.txt']);
-	assert.deepEqual(args.filename,'one.txt');
+	assert.deepEqual(args.fileNames,'one.txt');
 	assert.deepEqual(args.options,['lines']);
 };
 
 test['readArgs finds filename and -w'] = function(){
 	var args = lib.readArgs(['-w','one.txt']);
-	assert.deepEqual(args.filename,'one.txt');
+	assert.deepEqual(args.fileNames,'one.txt');
 	assert.deepEqual(args.options,['words']);
 };
