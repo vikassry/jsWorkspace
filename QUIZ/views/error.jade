@@ -1,0 +1,10 @@
+extends layout
+
+block vars
+  - var title = "Error Display"
+block content
+  - var navigations = [{name: "dashboard", link: "/dashboard"}, {name: "logout", link: "/logout"}]
+  - var userName = email
+  - var linkDestination = "/dashboard"
+  include header/header.jade
+  include error500/error500.jade

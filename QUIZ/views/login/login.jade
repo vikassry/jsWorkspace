@@ -1,0 +1,21 @@
+block includes
+   link(rel="stylesheet", href="/login/login.css")
+
+
+div(class="login-wrapper")
+    header(class="login-title") Login
+    form(method="post")
+        input(required, type="email", class="text-input", name="email", placeholder="Enter your email id")
+        input(required, type="password", class="text-input", name="password", placeholder="Enter your password")
+        br
+        label(for="loginCheckbox")
+            input(type="checkbox", id="loginCheckbox", class="checkbox", name = "exist")
+            span I am already a user
+        br
+        - var submitValue = "JOIN"
+
+        include ../submit-button/submit-button.jade
+
+    if(error)
+        #errorMessage
+            | #{error}

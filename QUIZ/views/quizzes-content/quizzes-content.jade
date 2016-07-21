@@ -1,0 +1,16 @@
+block includes
+    link(rel="stylesheet", href="/quizzes-content/quizzes-content.css")
+
+
+div(class="quizzes-content-wrapper")
+    div(class="header")
+        div(class="cell")
+            p Name of the quiz
+        div(class="cell")
+            p Total questions
+
+    for quiz in quizList
+        div(class="row")
+            a(href="quiz/#{quiz.index}")
+                label(class="cell") #{quiz.name}
+                p(class="cell") #{quiz.totalQuestions}

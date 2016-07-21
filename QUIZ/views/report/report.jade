@@ -1,0 +1,16 @@
+extends ../layout
+block vars
+    - var title = "Report"
+block content
+    - var navigations = [{name: "dashboard", link: "/dashboard"}, {name: "logout", link: "/logout"}]
+    - var userName = email
+    - var linkDestination = "/dashboard"
+
+    include ../header/header.jade
+    link(rel="stylesheet", href="/report/report.css")
+
+    div(class="report-wrapper")
+        h1 Congratulation #{email}
+        h2 You have just played #{quizName}
+        h2 You have scored #{correct}/#{total}
+        p Thank you for playing........

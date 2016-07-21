@@ -1,0 +1,29 @@
+extends ../layout
+block vars
+   - var title = "Create Quiz"
+
+block content
+   - var navigations = [{name: "dashboard", link: "/dashboard"}]
+   - var pageName = "CREATE QUIZ"
+
+   include ../header/header.jade
+
+   link(rel="stylesheet", href="/create-quiz/create-quiz.css")
+   link(rel="stylesheet", href="/login/login.css")
+
+   div(class="create-quiz-container")
+       form(method="post", action="/createQuiz", class="form")
+
+           for key in [{placeholder: "Quiz Name", name:"name"}, {placeholder: "No of participant", name:"noOfPart"}, {placeholder: "Time Limit (in Minutes)", name: "time"}]
+            div
+                input(type="text", class="text-input", name="#{key.name}", placeholder="#{key.placeholder}")
+
+           div(class="browse-file")
+               label Browse Question
+               input(type="file", class="file-input", name="question", accept="application/json")
+
+           - var submitValue = "CREATE"
+           include ../submit-button/submit-button.jade
+
+       if error
+           p #{error}

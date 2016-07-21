@@ -1,0 +1,9 @@
+.content-wrapper {
+    display: inline;
+    height: 500px;
+    float: left;
+    width: 700px;
+    position: absolute;
+    margin: auto;
+    padding-left: 60px;
+}
