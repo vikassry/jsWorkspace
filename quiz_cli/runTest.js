@@ -19,8 +19,8 @@
 //	};
 //	exports.test = test;
 //-----------------------------------------
-
 var fs = require('fs');
+var verbose = false;
 var usages = ['node runTest.js exampleTest.js ==> runs all tests',
 	'node runTest.js exampleTest.js -list ==> lists all tests',
 	'node runTest.js exampleTest.js -stop ==> stops on first failure',
@@ -48,7 +48,7 @@ var quit = function(){
 
 var readTestDetails = function(testfileName){
 	console.log('loading tests from',testfileName);
-	var test = require('./'+testfileName).test;
+	var test = require(fs.realpathSync(testfileName)).test;
 	test || quit('Missing test object in',testfileName);
 	var members = Object.keys(test);
 	var isAFunction = function(field){return ('function' == typeof test[field]);};
@@ -63,19 +63,20 @@ var runTests = function(test,methodNames,option){
 		var member = test[name];
 		if(!member) return;
 		total++;
-		console.log('--------');
-		console.log('-->',name);
+		verbose && console.log('--------');
+		verbose && console.log('-->',name);
 		try{			
 			member();
 		}catch(error){
 			failed++;
 			failures.push(name);
+			console.log('-->',name);
 			console.log(error.stack);
 			if(option === 'stop') throw {name:'User Requested to stop',message:'on first failure'};
 		}
 	};
 	methodNames.forEach(executeTest);
-	console.log('--------');	
+	verbose && console.log('--------');	
 	console.log(total-failed +'/'+total+' passed');	
 	fs.writeFile('.failures',failures.join());
 };
@@ -96,7 +97,7 @@ var main = function(){
 	(option === '-list') && testDetails.methodNames.forEach(printLine);
 	(option === '-stop') && runTests(testDetails.test,testDetails.methodNames,'stop');
 	(option === '-only') && runTests(testDetails.test,testDetails.methodNames.filter(matching));
-	(option === '-last') && runTests(testDetails.test,lastFailures() || testDetails.methodNames);
+	(option === '-last') && runTests(testDetails.test,lastFailures() || testDetails.methodNames);	
 	option || runTests(testDetails.test,testDetails.methodNames);
 };
 

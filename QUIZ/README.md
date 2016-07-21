@@ -1,2 +1,0 @@
-# QUIZ
-Test Of Knowledge
