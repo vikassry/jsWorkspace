@@ -19,4 +19,18 @@ var giveNotes = function(amount, all_notes){
 	return required_notes
 }
 
+
+var findNotes = function(amount, all_notes){
+	return getSortedNotes(all_notes).reduce(function(prev, curr){
+		var numberOfNote = Math.floor(amount / curr);
+		if(numberOfNote > 0){
+			prev[curr] = numberOfNote;
+			amount =  amount % curr;
+		}	
+		return prev;
+	}, {});
+
+}
+
 console.log(giveNotes(179, notes));
+console.log(findNotes(179, notes));
