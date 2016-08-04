@@ -32,5 +32,19 @@ var findNotes = function(amount, all_notes){
 
 }
 
+var recursiveFindNotes = function(amount, all_notes,required_notes){
+	if(!amount || !all_notes.length)
+		return required_notes;
+	var note = all_notes[0];
+	var numberOfNote = Math.floor(amount / note);
+	if(numberOfNote > 0){
+		required_notes[note] = numberOfNote;
+		amount =  amount % note;
+	}
+	return recurseFindNotes(amount, all_notes.slice(1), required_notes);
+};
+
+
 console.log(giveNotes(179, notes));
 console.log(findNotes(179, notes));
+console.log(recursiveFindNotes(179, getSortedNotes(notes), {}));
