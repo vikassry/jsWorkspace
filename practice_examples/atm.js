@@ -41,7 +41,7 @@ var recursiveFindNotes = function(amount, all_notes,required_notes){
 		required_notes[note] = numberOfNote;
 		amount =  amount % note;
 	}
-	return recurseFindNotes(amount, all_notes.slice(1), required_notes);
+	return recursiveFindNotes(amount, all_notes.slice(1), required_notes);
 };
 
 
