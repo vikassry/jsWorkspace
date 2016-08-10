@@ -1,25 +1,29 @@
 var a = [1,2,3];
 var b = [3,2,1];
-var c = [2,2,2];
+var c = [2,2,2,0];
 
-var addTwoElements = function (x,y){
-	result = [];
-	x.forEach(function(data, i){
-		result[i] = data + y[i];
+var addTwoElements = function (coll1,coll2){
+	var longCollection = (coll1.length > coll2.length) ? coll1 : coll2;
+	var shortCollection = (coll1.length <= coll2.length) ? coll1 : coll2;
+	return longCollection.map(function(element , index){
+		return shortCollection[index] && (element + shortCollection[index]) || element;
 	});
-	return result;
 };
-console.log(addTwoElements(a,c));
 
+d = [1,3,5,8];
 
-var a = [1,3,5,8];
-var star = function(data){
+var star = function(numbers){
 	var result ='';
-	data.forEach(function(x){
-		for(var i=0; i<x; i++){
-			result = result +'*';
-		};
+	numbers.forEach(function(number){
+		result = result + createStars(number)
 		console.log(result);
 	});
 };
-star(a);
+
+function createStars(number){
+	if(number <= 0) return "";
+	return "*" + createStars(number - 1);
+};
+
+star(d);
+console.log(addTwoElements(a,c));
