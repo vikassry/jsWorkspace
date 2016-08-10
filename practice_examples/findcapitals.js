@@ -1,30 +1,30 @@
 var Countries = ['India','England','Pakistan','SriLanka','Australia','America'];
 var Capitals = ['New Delhi','London','Islamabad','Kolambo','Melbourne','Washington D.C'];
 
-function find_capital(x){
+function findCapital(country){
 	var capital;
-	Countries.forEach(function(data,i){
-	if(data[0].toUpperCase()+data.slice(1).toLowerCase()==x)
-		 return capital=Capitals[i];						
+	Countries.forEach(function(element,index){
+	if(element.toUpperCase() == country.toUpperCase())
+		 capital = Capitals[index];						
 	});
 	return capital;												
 };														
-console.log(find_capital('England'));
+console.log(findCapital('eNglAnd'));
 
-
-var show_capital = function(country){
-	var capital ='';
-	countries =[['India','Delhi'],['England','London'],['Pakistan','Islamabad'],['SriLanka','Colambo'],['Australia','Melbourne'],['America','Washington']];
+var showCapital = function(country){
+	var countries = [['India','Delhi'],['England','London'],['Pakistan','Islamabad'],['SriLanka','Colambo'],
+				['Australia','Melbourne'],['America','Washington']];
+	var capital;	
 	countries.forEach(function (c){
 		(c[0] == country) && (capital = c[1]);
-});
+	});
 	return capital;
 };
-console.log(show_capital('India'));
+console.log(showCapital('India'));
 
 
-function findcap(x){
+var findCap = function(country){
 	countryObj = {India:'Delhi',Bangladesh:'Dhaka'};
-	return countryObj[x];
+	return countryObj[country];
 };
-console.log(findcap('Bangladesh'));
+console.log(findCap('Bangladesh'));

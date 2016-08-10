@@ -1,55 +1,11 @@
-var Fib = function(number){
-	var first_no = 0, second_no = 1, array = [], i=0;
-	function fibonaci(number) {	
-		while(i < number){
-			var next_no = first_no + second_no;
-			array.push(next_no);
-			first_no = second_no;
-			second_no = next_no;
-			i++;
-		};
-		array.unshift(0,1);
-	};
-	fibonaci(number);
-	return array[number];
+var Fibonacci = function(n){
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return 1;
+	return (Fibonacci(n-1) + Fibonacci(n-2));
 };
-console.log(Fib(process.argv[2]));
-
-//------------------------------------------------------------------------------------
-
-var fibo = function(number){
- 	var fib_array=[];
-	function Fibonacci(n){
-		if (n == 0)
-			return 0;
-		else if (n == 1)
-			return 1;
-		return (Fibonacci(n-1) + Fibonacci(n-2));
-	};
-	Fibonacci(number);
-	arr = [0,1,2,3,4,5,6,7].map(Fibonacci);
-	return arr[arr.indexOf(number)-1];
-}
-console.log(fibo(5));
-//-------------------------------------------------------------------------------
-
-var fib=function(number){
- 	var fib_array=[];
- 	var a=0, b=1;
- 		if(number==1)
- 			return a;
- 		fib_array.push(a);
- 		fib_array.push(b);
- 		function fibonaci(a,b){
- 			if(fib_array.length-1>number)
- 				return;
- 			fib_array.push(a+b);
- 			return fibonaci(b,a+b);
- 		}
- 		fibonaci(a,b);
- 		return fib_array[number];
- 	};
- 	console.log(fib(process.argv[2]));
+console.log("Fibonacci",Fibonacci(+process.argv[2]));
 
 //---------------------------------------------------------------------------
 

@@ -1,46 +1,43 @@
+var numbers = [1,2,3,4,5,6,7,15,90];
 
-var numbers= [1,2,3,4,5,6,7,15,90];
-var divisibleby5 = function(x){
-	return (x % 5 == 0);
+var divisibleby5 = function(number){
+	return (number % 5 == 0);
 };
 
-function find_divisible_by_5(arr,funref){
-	var newArray = [];
-	arr.forEach(function(x){
-		if(funref(x))
-			newArray.push(x);
+function find_divisible_by_5(values,operation){
+	var filtered_values = [];
+	values.forEach(function(value){
+		if(operation(value))
+			filtered_values.push(value);
 	});
- console.log(newArray);
-}
-find_divisible_by_5(numbers,divisibleby5);
-
-console.log('----------------------------')
+ 	return filtered_values;
+};
 
 
 var array = [1,2,3,4,5,6];
-function say_hii(x){
-	return x+'hii';
+function say_hii(arg){
+	return arg + 'hii';
 };
 
-var mymap = function(arry,fun) {
-	var new1 = [];
-	arry.forEach(function(x){
-	 	new1.push(fun(x));
+var mymap = function(elements,operation) {
+	var mapped = [];
+	elements.forEach(function(element){
+	 	mapped.push(operation(element));
 	 });
- 	console.log(new1);
+	return mapped;
 };
-mymap(array,say_hii);
-
-console.log('------------------------------')
 
 
-function increment(data){ return data+1;}
+function increment(data){ return data + 1 };
 
-var increment_1 = function(arr,func){
-	var new2 = [];
-	arr.forEach(function(data){
-		new2.push(func(data));
+var incrementBy_1 = function(values,operation){
+	var incremented_values = [];
+	values.forEach(function(data){
+		incremented_values.push(operation(data));
 	});
-	console.log(new2);
+	return incremented_values;
 };
-increment_1(array,increment);
+
+console.log(find_divisible_by_5(numbers,divisibleby5))
+console.log(mymap(array,say_hii));
+console.log(incrementBy_1(array,increment));
