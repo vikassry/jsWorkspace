@@ -1,4 +1,4 @@
-var  myFunction = function(a){
+var nestedClosure = function(a){
 	return function func1(b)
 	{
 		return function func2(c){
@@ -6,4 +6,4 @@ var  myFunction = function(a){
 		};
 	};
 };
-console.log(myFunction(2)(3)(4));
+console.log(nestedClosure(2)(3)(4));

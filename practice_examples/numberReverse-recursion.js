@@ -1,3 +1,4 @@
+
 var num = +process.argv[2];
 var result=0;
 while(num > 0){
@@ -23,14 +24,14 @@ var reverse = function(n){
 	console.log('digits:',digits);
 	return digit*Math.pow(10,digits)+tser;		
 };
-console.log(reverse(num));
+console.log(reverse(num)+'\n');
 
- var reverse = function(number){
+var Reverse = function(number){
 	if (number < 10) 
 		return number;
-	var digit = number%10;
+	var digit = number % 10;
 	var number = (number - digit) / 10;
   	var power = 1 + Math.floor(Math.log(number) / Math.log(10));
-  	return digit*Math.pow(10,power)+reverse(number); 
+  	return digit * Math.pow(10,power) + Reverse(number); 
 };
-console.log(reverse(+process.argv[2]));
+console.log(Reverse(num));

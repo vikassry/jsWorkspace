@@ -50,4 +50,4 @@ console.log(s.name);
 s.name = 'shamal';
 console.log('after updation=',s.name)
 delete s.name;
-console.log('after deleting name=',s.name)
+console.log('after deleting name=',s.name);

@@ -27,15 +27,15 @@ var practice = {
 
 	findBestVowelWord : function(words){
 		return words.reduce(function(prev_word, curr_word){
-			return (practice.getVowelCount(prev_word) >= practice.getVowelCount(curr_word))
-			 ? prev_word : curr_word;
+			return (practice.getVowelCount(prev_word) >= practice.getVowelCount(curr_word)) 
+			? prev_word : curr_word;
 		});
 	},
 
 	findWorstVowelWord : function(words){
 		return words.reduce(function(prev_word, curr_word){
-			return (practice.getVowelCount(prev_word) <= practice.getVowelCount(curr_word))
-			 ? prev_word : curr_word;
+			return (practice.getVowelCount(prev_word) <= practice.getVowelCount(curr_word)) 
+			? prev_word : curr_word;
 		});
 	},
 

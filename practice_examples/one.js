@@ -1,12 +1,9 @@
-var x = [1,2,3,4,5,];
-console.log(x);
-
 function fun(str){
 	var word = str.split('');
-	word.map(function(x,index){
-		(!isNaN(x) && x!=' ') && (word[index] = ['jimmy','jammy','hiiii'][x]);	
+	word.map(function(char,index){
+		(!isNaN(char) && char!=' ') && (word[index] = ['jimmy','jammy','hiiii'][char]);	
 		return word;
 	});
 	return word.join('');
 };
-console.log(fun('0, 1, 0, Where are you?'));
+console.log(fun('2, 0, 1, Where are you?'));
