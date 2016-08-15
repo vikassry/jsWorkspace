@@ -37,22 +37,22 @@ exports.r = r;
 // 	return set;
 // };
 
-
 var find_intersections = function(set1, set2, object){
-	if(set1==set2) return object.apply(null,set1);
+	console.log("aaaaasds", set1, set2, object)
+	if(set1.isEqualTo(set2)) return set1;
 	var intersects = [];
 	Object.keys(set1).forEach(function(element1){
 		Object.keys(set2).forEach(function(element2){
 			(element1 == element2) && intersects.push(element1);
 		});
 	});
-	return object.apply(null,intersects);
+	return object.apply(null, intersects);
 };
 
 
 r.Set = function(){
 	this.set_elements = Array.prototype.slice.call(arguments,0)
-	this.set_elements.forEach(function(val){ Object.defineProperty(this.set, val, {enumerable:true}) });
+	this.set = Array.prototype.reduce.call(arguments,function(prev, curr){prev[curr]=undefined; return prev;},{});
 };
 
 r.Set.prototype = {
@@ -61,13 +61,13 @@ r.Set.prototype = {
 		return r.Set.apply(null,result);
 	},
 	isEqualTo : function(new_set){
-		return Object.keys(this.set).toString() == Object.keys(new_set).toString();
+		return Object.keys(this).toString() == Object.keys(new_set).toString();
 	},
 	toString : function(){
 		return 'Set{'+ this.set_elements.map(function(s){return s.join();}).join('; ') + '}' ;	
 	},
 	intersection : function(new_set){
-		return (new_set==this.set) ? this.set : find_intersections(this.set, new_set, r.Set)
+		return (new_set==this) ? new_set : find_intersections(this, new_set, r.Set)
 	},
 	cardinality : function(){		// TODO: try with getter
 		var cardinality = [];
@@ -81,6 +81,7 @@ r.Set.prototype = {
 r.Sets = {
 	phi: new r.Set()
 };
+
 
 r.Template = function(string){
 	var template = function(bag){
