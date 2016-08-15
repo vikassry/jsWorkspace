@@ -628,23 +628,20 @@ r.tidyText = function(text){
 };
 
 r.range = function(start,end,frequency){
+	var frequency = frequency || 1;
 	if (start >= end)
 		return [];
 	return [start].concat(r.range(start + frequency, end, frequency));
 };
 
 r.factors = function(number){
-	var factors = [];
-	var count = 1;
-	function find_factors(n){
-		if(count > n)
-			return;
-		(n % count == 0) && factors.push(count);
-		count += 1;
-		find_factors(n);
-	}
-	find_factors(number);
-	return factors;
+	var findFactors = function(value, factors, count){
+		if(count > number)
+			return factors;
+		(value % count == 0) && factors.push(count);
+		return findFactors(value, factors, count+1);
+	};
+	return findFactors(number, [], 0);
 };
 
 r.what_are_these = function(){
