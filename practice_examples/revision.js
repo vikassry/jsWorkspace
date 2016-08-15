@@ -38,8 +38,7 @@ exports.r = r;
 // };
 
 var find_intersections = function(set1, set2, object){
-	console.log("aaaaasds", set1, set2, object)
-	if(set1.isEqualTo(set2)) return set1;
+	if (set1.isEqualTo(set2)) return set1;
 	var intersects = [];
 	Object.keys(set1).forEach(function(element1){
 		Object.keys(set2).forEach(function(element2){
@@ -52,22 +51,25 @@ var find_intersections = function(set1, set2, object){
 
 r.Set = function(){
 	this.set_elements = Array.prototype.slice.call(arguments,0)
-	this.set = Array.prototype.reduce.call(arguments,function(prev, curr){prev[curr]=undefined; return prev;},{});
+	this.set = Array.prototype.reduce.call(arguments,function(prev, curr){
+		prev[curr] = undefined; return prev;
+	}, {});
 };
 
 r.Set.prototype = {
 	union :  function(new_set){
-		var result = Object.keys(this.set).concat(Object.keys(new_set));
+		if (new_set == this) return new_set;
+		var result = Object.keys(this.set).concat(Object.keys(new_set.set));
 		return r.Set.apply(null,result);
 	},
 	isEqualTo : function(new_set){
 		return Object.keys(this).toString() == Object.keys(new_set).toString();
 	},
 	toString : function(){
-		return 'Set{'+ this.set_elements.map(function(s){return s.join();}).join('; ') + '}' ;	
+		return 'Set{' + this.set_elements.map(function(s){ return s.join() }).join('; ') + '}' ;	
 	},
 	intersection : function(new_set){
-		return (new_set==this) ? new_set : find_intersections(this, new_set, r.Set)
+		return (new_set == this) ? new_set : find_intersections(this, new_set, r.Set)
 	},
 	cardinality : function(){		// TODO: try with getter
 		var cardinality = [];
