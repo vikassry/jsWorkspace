@@ -4,13 +4,8 @@ function Student(name,age,interest){
 	this.interest = interest;
 };
 Student.prototype = {
-	interestedIn : function(x){
-		var i =false;
-		//return this.interest.indexOf(x)>=0;
-		this.interest.forEach(function(y){
-			y==x && (i=true);
-		});
-		return i;
+	interestedIn : function(hobby){
+		return this.interest.indexOf(hobby) >= 0;
 	}
 };
 var s = new Student('vikas',19,['music','cricket']);
@@ -20,17 +15,20 @@ console.log(s.interestedIn('music'));
 console.log(s.interestedIn('crying'));
 console.log('--------------------------------');
 
-createCircle = function(dimensions,radius){
+
+var createCircle = function(dimensions,radius){
 	this.dimensions = dimensions;
 	this.radius = radius;
 };
+
 createCircle.prototype = {
-	Radius: function(){return this.radius;},
-	area: function(){return this.radius*this.radius*22/7;},
-	perimeter: function(){ return 2*22/7*this.radius;}
+	Radius : function() { return this.radius; },
+	area : function() { return this.radius * this.radius * 22 / 7; },
+	perimeter : function() { return 2 * 22 / 7 * this.radius; }
 };
 
-Object.defineProperty(s,'name',{writable:false})
+
+Object.defineProperty(s, 'name', { writable : false })
 var a = new createCircle([0,0],7);
 console.log('radius',a.Radius());
 console.log('area',a.area());
@@ -41,8 +39,8 @@ console.log('---------------------------------');
 
 console.log(s);
 console.log(s.interestedIn);
-s.interestedIn='dsaf';
-console.log('after update: '+s.interestedIn)
+s.interestedIn = 'dsaf';
+console.log('after update: '+ s.interestedIn)
 console.log(s)
 delete s.interestedIn;
 console.log(s.interestedIn);
