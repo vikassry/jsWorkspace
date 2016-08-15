@@ -628,16 +628,9 @@ r.tidyText = function(text){
 };
 
 r.range = function(start,end,frequency){
-	var range = [];
-	var frequency = frequency || 1;
-	function Range(start,end){
-		if(start >= end)
-			return;
-		range.push(start);
-		Range(start+frequency, end);
-	}
-	Range(start,end);
-	return range;		
+	if (start >= end)
+		return [];
+	return [start].concat(r.range(start + frequency, end, frequency));
 };
 
 r.factors = function(number){
