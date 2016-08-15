@@ -146,21 +146,22 @@ r.compare = {
 
 r.to = {
 	round_25_paise : function(value){
-		var r = value % 0.25;
-		return (r <= 0.25/2) ? value - r : (value - r) + 0.25;
+		var chaarana = 0.25;
+		var r = value % chaarana;
+		return (r <= chaarana / 2) ? (value - r) : (value - r + chaarana);
 	},
 	day : function(date){
-		date = new Date(date);
+		var date = new Date(date);
 		var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 		return days[date.getDay()];
 	},
 	nextDay : function(date){
         date = new Date(date);
         date.setDate(date.getDate()+1);
-        var d = date.getDate();
-        var m = date.getMonth()+1;
-        var y = date.getFullYear();
-        return (m > 9 && d > 9) && (y +'-'+ m +'-'+ d) || (y +"-0"+ m +"-0"+ d);
+        var dd = date.getDate();
+        var mm = date.getMonth()+1;
+        var yy = date.getFullYear();
+        return (mm > 9 && dd > 9) && (yy +'-'+ mm +'-'+ dd) || (yy +"-0"+ mm +"-0"+ dd);
     }
 };
 
