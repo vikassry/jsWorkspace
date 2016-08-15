@@ -168,7 +168,7 @@ r.to = {
 r.is = {
 	the_point_on : function(ob) {
 		return function(point){
-			if(typeof ob.radius =='number')
+			if(typeof ob.radius == 'number')
 				return (Math.sqrt(Math.pow(ob.centre.x - point.x, 2) + Math.pow(ob.centre.y - point.y, 2)) == ob.radius);
 			var d1 = Math.sqrt(Math.pow(ob.start.x - point.x, 2) + Math.pow(ob.start.y - point.y, 2));
 			var d2 = Math.sqrt(Math.pow(ob.end.x - point.x, 2) + Math.pow(ob.end.y - point.y, 2));
@@ -176,7 +176,7 @@ r.is = {
 			}
 		},
 	greater_than_previous_number : function(number1,number2){
-		return (number1 > number2);
+		return number1 > number2;
 	}
 };
 
@@ -186,13 +186,13 @@ r.sumOfDigits = function(number){
 };
 
 r.switch=function(next,task){
-		return (typeof(next) =='function') ? task[next()]() : task[next]();
+	return (typeof next == 'function') ? task[next()]() : task[next]();
 };
 
 r.do = function(funref){
 	var Do = {};
 	Do.while = function(condition){
-		if(condition() == false)
+		if(!condition())
 			funref();
 		var while_func = function(condition){
 			if(condition()){
@@ -202,31 +202,33 @@ r.do = function(funref){
 		}
 		return while_func(condition);
 	};
+
 	Do.until = function(condition){
 		funref();
-		return (condition() == false) && Do.until(condition);
+		return (!condition()) && Do.until(condition);
 	}
 	Do.if = function(condition){
-		(condition() == true) && funref();
+		(condition()) && funref();
 	}
 	Do.unless = function(condition){
-		(condition() == false) && funref();
+		(!condition()) && funref();
 	}
-	Object.defineProperties(Do,{
-		"while" : {enumerable:false},
-		"until" : {enumerable:false},
-		"if" : {enumerable:false},
-		"unles" : {enumerable:false}
+	Object.defineProperties(Do, {
+		"while" : {enumerable : false},
+		"until" : {enumerable : false},
+		"if"  	: {enumerable : false},
+		"unles" : {enumerable : false}
 	});
 	return Do;
 };
 
 var initalize = function(init){
  	init();
- 	return function(){ };
+ 	return function(){};
 }
+
 r.for = function(init,check,next){
-	init = initalize(init);
+	var init = initalize(init);
 	return {
 		do : function(action){
 		if(check()){
@@ -265,8 +267,8 @@ r.factorial = function(number){
 	return (number <= 1) ? 1 : (number * r.factorial(number - 1));
 };
 
-r.calculate = function(math_expression_in_string){
-	return eval(math_expression_in_string).toString();
+r.calculate = function(math_expression){
+	return eval(math_expression).toString();
 };
 
 r.getVowelCount = function(word){
@@ -417,23 +419,23 @@ r.validatePositiveNumber = function(number){
 		throw new Error('decimal');
 };
 
-r.createNewArray = function(length,value){
-	var array = [];
-	if(!length && !value)
+var copyToArray = function(array, length, element){
+	if(length == 0)
 		return array;
-	if(length && !value){
+	var cloned_element = JSON.parse(JSON.stringify(element));
+	array[length - 1] = cloned_element;
+	return copyToArray(array, length - 1, element);
+}
+
+r.createNewArray = function(length,element){
+	var array = [];
+	if(!length && !element)
+		return array;
+	if(length && !element){
 		array.length = length;
 		return array;
 	}
-	var new_object = JSON.parse(JSON.stringify(value));
-	function copy(n){
-		if(n == 0)
-			return;
-		array[n-1] = new_object;
-		copy(n - 1);
-	}
-	copy(length);
-	return array;
+	return copyToArray(array, length, element);
 };
 
 r.Line = function(a,b){
@@ -510,44 +512,39 @@ r.Line = function(a,b){
 };
 
 var performTask = function(boolean, arg1, arg2){
-	return (boolean) ? ((typeof arg1 === 'function') ? arg1() : arg1) : ((typeof arg2 === 'function') ? arg2() : arg2);
+	return (boolean) 
+	? ((typeof arg1 === 'function') ? arg1() : arg1 ) 
+	: ((typeof arg2 === 'function') ? arg2() : arg2 );
 };
+
 r.if = function(boolean){
-	return{then : function(arg1){
-			return {else : function(arg2){
-					return (typeof boolean == 'boolean') ? performTask(boolean, arg1,arg2) : 
-					(boolean()) ? (typeof arg1 === 'function') ? arg1() : arg1 : 
-					(typeof arg2 === 'function') ? arg2() : arg2;
-				}
+	return { 
+		then : function(arg1){
+			return { else : function(arg2){
+				return (typeof boolean == 'boolean') ? performTask(boolean, arg1,arg2) : performTask(boolean(), arg1,arg2);
 			}
-		},
+		}
+	},
 		only_then : function(arg){
-			return(boolean) ? arg() : false;
+			return (boolean) ? arg() : false;
 		}
 	}
 };
 
 r.fibonacci = function(number){
-	return (number % 1 != 0 || number < 0) ? undefined : (number == 1 || number == 2) ?
-	 number - 1 : r.fibonacci(number-1) + r.fibonacci(number-2);
+	return (number % 1 != 0 || number < 0) ? undefined 
+	: (number == 1 || number == 2) 
+	? number - 1 : (r.fibonacci(number - 1) + r.fibonacci(number - 2));
 };
 
-r.resizeArray = function(array,number,object){
+r.resizeArray = function(array,length,object){
 	if(!Array.isArray(array)) return;
-	if(!number && !object) return array;
-	if((number && !object) ||array.length!=0){
-		array.length = number;
+	if(!length && !object) return array;
+	if((length && !object) || array.length!=0){
+		array.length = length;
 		return array;
 	}
-	var new_object = JSON.parse(JSON.stringify(object));
-	function copy(n){
-		if(n == 0)
-			return;
-		array[n-1] = new_object;
-		copy(n-1);
-	}
-	copy(number);
-	return array;
+	copyToArray(array, length, object);
 };
 
 r.reverseText = function(word){
