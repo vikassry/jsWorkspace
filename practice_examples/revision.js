@@ -85,19 +85,15 @@ r.Sets = {
 };
 
 
-r.Template = function(string){
-	var template = function(bag){
-		var bag_keys = Object.keys(bag);
-		var str_arr = string.split(" ");
-		bag_keys.forEach(function(key){
-			str_arr.forEach(function(word,index){
-				str_arr[index] = word.replace(key,bag[key]);
-			});
-		});
-		return str_arr.join(" ");
+r.Template = function(templateText){
+	var resolveTemplateWith = function(bag){
+		return Object.keys(bag).reduce(function(str,key){
+			return str.replace(RegExp(key,'g'), bag[key]);
+		}, templateText);
 	};
-	Object.defineProperty(template,"apply",{value:function(bag){ return template(bag);},enumerable:false});
-	return template;
+
+	Object.defineProperty(resolveTemplateWith, "apply", { value : function(bag){ return resolveTemplateWith(bag) },enumerable : false } );
+	return resolveTemplateWith;
 };
 
 r.findBestVowelWord = function(words){
