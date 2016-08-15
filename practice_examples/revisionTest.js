@@ -63,8 +63,8 @@ test.findX_gives_y_coordinate_of_a_line_only_inside = function (){
 	assert.equal(null,a.findX(-1));
 };
 test.create_a_set_with_duplicate_members = function (){
-	assert.equal(1,new r.Set(2,2).cardinality);
-	assert.equal(5,new r.Set('a','b','c',1,2,'a',2).cardinality);
+	assert.equal(1,new r.Set(2,2).cardinality());
+	assert.equal(5,new r.Set('a','b','c',1,2,'a',2).cardinality());
 };
 test.point_has_only_two_fields = function (){
 	assert.deepEqual(Object.keys(new r.Point(3,4)),['x','y']);
@@ -1443,8 +1443,8 @@ test.create_a_set_of_few_numbers = function (){
 	var phi = r.Sets.phi;
 	var x = new r.Set(1,2);
 	var y = new r.Set(2,1);
-	assert.equal(2,x.cardinality);
-	assert.equal(2,y.cardinality);
+	assert.equal(2,x.cardinality());
+	assert.equal(2,y.cardinality());
 	assert.ok(x.isEqualTo(y));
 	assert.ok(y.isEqualTo(x));
 	assert.deepEqual(false,phi.isEqualTo(x));
@@ -1621,7 +1621,7 @@ test.changeToHex_converts_numbers_to_hexadecimal = function (){
 	assert.equal('3ff', r.changeToHex(1023));	
 };
 test.empty_sets_have_cardinality_of_0 = function (){
-	assert.deepEqual(r.Sets.phi.cardinality,0);
+	assert.deepEqual(r.Sets.phi.cardinality(),0);
 };
 test.complex_numbers_can_be_added = function (){
 	var Complex = r.Complex;

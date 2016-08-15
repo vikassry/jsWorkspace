@@ -2,48 +2,42 @@ var r = {};
 exports.r = r;
 //Dont use for/while/do loops
 
-r.Set = function(){
-	var set = {};
-	var set_elements = Array.prototype.slice.call(arguments,0)
-	console.log(set_elements)
-	set_elements.forEach(function(val){ Object.defineProperty(set,val,{enumerable:true})});
-	Object.defineProperties(set,{
-		union : {
-			value : function(new_set){
-				var result = Object.keys(set).concat(Object.keys(new_set));
-				return r.Set.apply(null,result);
-			}
-		},
-		isEqualTo : {
-			value : function(new_set){
-				return Object.keys(set).toString() == Object.keys(new_set).toString();
-			}
-		},
-		toString : {
-			value : function(){
-				return 'Set{'+ set_elements.map(function(s){return s.join();}).join('; ') + '}' ;	
-			},			
-			enumerable : false
-		},
-		intersection : {
-			value : function(new_set){
-				return (new_set==set) ? set : find_intersections(set, new_set, r.Set)
-			},
-			enumerable : false
-		},
-		cardinality : {
-			value : get_cardinality(set_elements)
-		}
-	});
-	return set;
-};
-var get_cardinality = function(values){
-	var cardinality = [];
-	values.forEach(function(value){
-		(cardinality.indexOf(value) < 0) && cardinality.push(value);
-	});
-	return cardinality.length;
-};
+// r.Set = function(){
+// 	var set = {};
+// 	var this.set_elements = Array.prototype.slice.call(arguments,0)
+// 	set_elements.forEach(function(val){ Object.defineProperty(set,val,{enumerable:true})});
+// 	Object.defineProperties(set,{
+// 		union : {
+// 			value : function(new_set){
+// 				var result = Object.keys(set).concat(Object.keys(new_set));
+// 				return r.Set.apply(null,result);
+// 			}
+// 		},
+// 		isEqualTo : {
+// 			value : function(new_set){
+// 				return Object.keys(set).toString() == Object.keys(new_set).toString();
+// 			}
+// 		},
+// 		toString : {
+// 			value : function(){
+// 				return 'Set{'+ set_elements.map(function(s){return s.join();}).join('; ') + '}' ;	
+// 			},			
+// 			enumerable : false
+// 		},
+// 		intersection : {
+// 			value : function(new_set){
+// 				return (new_set==set) ? set : find_intersections(set, new_set, r.Set)
+// 			},
+// 			enumerable : false
+// 		},
+// 		cardinality : {
+// 			value : get_cardinality(set_elements)
+// 		}
+// 	});
+// 	return set;
+// };
+
+
 var find_intersections = function(set1, set2, object){
 	if(set1==set2) return object.apply(null,set1);
 	var intersects = [];
@@ -53,6 +47,35 @@ var find_intersections = function(set1, set2, object){
 		});
 	});
 	return object.apply(null,intersects);
+};
+
+
+r.Set = function(){
+	this.set_elements = Array.prototype.slice.call(arguments,0)
+	this.set_elements.forEach(function(val){ Object.defineProperty(this.set, val, {enumerable:true}) });
+};
+
+r.Set.prototype = {
+	union :  function(new_set){
+		var result = Object.keys(this.set).concat(Object.keys(new_set));
+		return r.Set.apply(null,result);
+	},
+	isEqualTo : function(new_set){
+		return Object.keys(this.set).toString() == Object.keys(new_set).toString();
+	},
+	toString : function(){
+		return 'Set{'+ this.set_elements.map(function(s){return s.join();}).join('; ') + '}' ;	
+	},
+	intersection : function(new_set){
+		return (new_set==this.set) ? this.set : find_intersections(this.set, new_set, r.Set)
+	},
+	cardinality : function(){		// TODO: try with getter
+		var cardinality = [];
+		this.set_elements.forEach(function(value){
+			(cardinality.indexOf(value) < 0) && cardinality.push(value);
+		});
+		return cardinality.length;
+	}
 };
 
 r.Sets = {
