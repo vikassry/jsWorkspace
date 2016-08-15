@@ -612,12 +612,9 @@ r.readHex = function(number){
 };
 
 r.impose = function(array1, array2){
-	var addition = [];
-	(!array2[array1.length - 1]) && (array2[array1.length - 1] = 0);
-	array1.forEach(function(data,i){
-		addition[i] = data + array2[i];
+	return array1.map(function(element , index){
+		return array2[index] && (element + array2[index]) || element;
 	});
-	return addition;
 };
 
 r.add = function(array,number){
@@ -627,10 +624,7 @@ r.add = function(array,number){
 };
 
 r.tidyText = function(text){
-	var words = text.split(' ');
-	return words.filter(function(word){
-		return (word != '');
-	}).join(' ');
+	return text.replace(/\s+/g,' ').trim();
 };
 
 r.range = function(start,end,frequency){
